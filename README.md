@@ -166,3 +166,42 @@ A: For production use, consider using vector databases like Pinecone, Weaviate, 
 
 **Happy Learning! 🚀**
 
+
+# 🔥 RAG + Local LLM Extension (updated)
+
+This project was extended by adding a **Retrieval-Augmented Generation (RAG)** section that uses a **local language model** (Gemma 3–270M via Ollama) to answer questions **only using the 5 original sentences** from the embedding tutorial.
+
+### ✔️ What This New Section Does
+1. **Reuses the original embedding model and sentence corpus** from the professor’s notebook  
+2. Performs **semantic search** to retrieve the top-K most relevant sentences  
+3. Builds a **context block** from those retrieved sentences  
+4. Sends the context + question to **Gemma 3 (270M)** running locally through Ollama  
+5. Generates an answer that is **strictly grounded** in the retrieved context  
+6. Demonstrates a fully offline **mini RAG system**
+
+### ✔️ Why This Matters
+- Shows how to combine **SentenceTransformer embeddings** + **local LLM inference**
+- Requires **no cloud API keys**  
+- Demonstrates the core workflow behind modern RAG systems  
+- Keeps the original project code untouched  
+- Runs entirely on CPU using an extremely lightweight LLM model
+
+### ✔️ Key Functions Added
+- `build_context(question, top_k)`
+- `ask_local_llm(context, question)`
+- `answer_with_local_llm(question, top_k)`
+
+### ✔️ Example Usage
+
+```python
+answer_with_local_llm("Which sentence talks about phones?", top_k=3)
+
+### requirements
+
+ollama pull gemma3:270m
+pip install requests
+
+
+
+
+
